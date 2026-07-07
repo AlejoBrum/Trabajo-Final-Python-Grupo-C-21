@@ -39,4 +39,35 @@ def iniciar_sesion():
 
     print("\n[ALERTA] Tarjeta retenida por seguridad. Comuniqúese con el banco.")
     return False
+ # Menú principal del sistema
+def menu_principal():
+    """Muestra el menú de operaciones y gestiona la selección del usuario."""
     
+    opciones_validas = {"1", "2", "3", "4", "5"}
+    
+    # El bucle mantiene al usuario dentro del menú hasta que decida salir
+    while True:
+        print("\n--- MENÚ DE OPERACIONES ---")
+        print("1. Consultar Saldo")
+        print("2. Extracción de Efectivo")
+        print("3. Depósito")
+        print("4. Transferencia")
+        print("5. Salir")
+
+        opcion = input("Seleccione una opción (1-5): ").strip()
+
+        if opcion not in opciones_validas:
+            print("\n[ERROR] Opción no válida. Intente nuevamente.")
+            continue
+
+        if opcion == "1":
+            pass  # Temporal: Aca va la consulta de saldo
+        elif opcion == "2":
+            pass  # Temporal: Aca va la extracción
+        elif opcion == "3":
+            pass  # Temporal: Aca va el depósito
+        elif opcion == "4":
+            pass  # Temporal: Aca va la transferencia
+        elif opcion == "5":
+            print("\nGracias por utilizar nuestros servicios. ¡Hasta luego!")
+            break  # Rompe el bucle y cierra el menú   
