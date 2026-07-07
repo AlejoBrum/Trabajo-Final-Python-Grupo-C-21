@@ -24,19 +24,22 @@ def iniciar_sesion():
 
     print("\n--- BIENVENIDO AL BANCO DIGITAL ---")
 
+    # Un bucle 'while' (Mientras) que se repite mientras queden intentos
     while intentos_restantes > 0:
         dni = input("Ingrese su DNI (Usuario): ").strip()
         pin = input("Ingrese su clave PIN de 4 dígitos: ").strip()
 
+        # Verificamos si el DNI existe en el diccionario y si el PIN coincide
         if dni in usuarios and usuarios[dni]["pin"] == pin:
             usuario_autenticado = dni
             print(f"\n¡Ingreso exitoso! Bienvenido/a {usuarios[dni]['nombre']}.")
-            return True
+            return True  # Corta la función y devuelve "Verdadero" (logueado)
         else:
             intentos_restantes -= 1
             print(f"[ERROR] Usuario o PIN incorrectos.")
             print(f"Intentos restantes: {intentos_restantes}\n")
 
+    # Si el bucle termina y llega acá, es porque se quedó sin intentos
     print("\n[ALERTA] Tarjeta retenida por seguridad. Comuniqúese con el banco.")
     return False
  # Menú principal del sistema
