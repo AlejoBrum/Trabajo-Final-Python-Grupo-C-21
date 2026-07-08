@@ -63,9 +63,9 @@ def menu_principal():
         if opcion == "1":
             pass # Temporal: Aca va la consulta de saldo
         elif opcion == "2":
-            extraer_dinero() # Temporal: Aca va la extracción de dinero
+            extraer_dinero() # <-- Cambiamos el pass por la función real
         elif opcion == "3":
-            pass # Temporal: Aca va el depósito
+            depositar_dinero() # <-- Cambiamos el pass por la función real
         elif opcion == "4":
             pass # Temporal: Aca va la transferencia
         elif opcion == "5":
@@ -101,3 +101,25 @@ def extraer_dinero():
         datos_usuario["saldo"] -= monto
         print(f"\n¡Extracción exitosa! Retire su dinero.")
         print(f"Saldo restante: ${datos_usuario['saldo']}")
+
+# Función para depositar dinero
+
+def depositar_dinero():
+    datos_usuario = usuarios[usuario_autenticado]
+    print("\n--- DEPÓSITO DE EFECTIVO ---")
+    
+    entrada = input("Ingrese el monto a depositar: ").strip()
+    if not entrada.isdigit():
+        print("\n[ERROR] Debe ingresar un monto numérico válido.")
+        return
+
+    monto = float(entrada)
+    
+    # Validamos que no metan un monto negativo o cero
+    if monto <= 0:
+        print("\n[ERROR] El monto a depositar debe ser mayor a cero.")
+    else:
+        # Sumamos la plata al saldo del usuario
+        datos_usuario["saldo"] += monto
+        print(f"\n¡Depósito exitoso! Se han acreditado ${monto} en su cuenta.")
+        print(f"Nuevo saldo disponible: ${datos_usuario['saldo']}")
