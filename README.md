@@ -53,6 +53,6 @@ Las sugerencias fueron revisadas por el grupo antes de incorporarlas al proyecto
 
 https://github.com/AlejoBrum/Trabajo-Final-Python-Grupo-C-21/tree/master#trabajo-final-integrador
 
-**Video de demostración (YouTube):**
+**Video de demostración (Drive):**
 
-[Pegar aquí el enlace del video]
+https://drive.google.com/drive/folders/17XAAxwFEFTKJScJjOGEoYVpkkky31_H5?usp=drive_link
