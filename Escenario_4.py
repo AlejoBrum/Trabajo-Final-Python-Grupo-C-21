@@ -67,7 +67,7 @@ def menu_principal():
         elif opcion == "3":
             depositar_dinero() # <-- Cambiamos el pass por la función real
         elif opcion == "4":
-            pass # Temporal: Aca va la transferencia
+            transferir_dinero()
         elif opcion == "5":
             print("\nGracias por utilizar nuestros servicios. ¡Hasta luego!")
             break  # Rompe el bucle y cierra el menú
@@ -131,3 +131,43 @@ def depositar_dinero():
         datos_usuario["saldo"] += monto
         print(f"\n¡Depósito exitoso! Se han acreditado ${monto} en su cuenta.")
         print(f"Nuevo saldo disponible: ${datos_usuario['saldo']}")
+
+# Función para realizar transferencias
+
+def transferir_dinero():
+    datos_usuario = usuarios[usuario_autenticado]
+    print("\n--- TRANSFERENCIA BANCARIA ---")
+    
+    destino = input("Ingrese el DNI del destinatario: ").strip()
+    
+    # Validación: No transferirse a uno mismo
+    if destino == usuario_autenticado:
+        print("\n[ERROR] No puede transferirse dinero a su propia cuenta.")
+        return
+    
+    # Validación: Que el destinatario exista en el sistema
+    if destino not in usuarios:
+        print("\n[ERROR] El usuario destino no existe.")
+        return
+        
+    entrada = input("Ingrese el monto a transferir: ").strip()
+    if not entrada.isdigit():
+        print("\n[ERROR] Debe ingresar un monto numérico válido.")
+        return
+        
+    monto = float(entrada)
+    
+    # Validación: Fondos suficientes
+    if monto <= 0:
+        print("\n[ERROR] El monto debe ser mayor a cero.")
+    elif monto > datos_usuario["saldo"]:
+        print("\n[ERROR] Saldo insuficiente para realizar la transferencia.")
+    else:
+        # Descontamos al emisor y sumamos al receptor
+        datos_usuario["saldo"] -= monto
+        usuarios[destino]["saldo"] += monto
+        print(f"\n¡Transferencia exitosa! Se enviaron ${monto} a {usuarios[destino]['nombre']}.")
+        print(f"Su saldo restante es: ${datos_usuario['saldo']}")
+    if __name__ == "__main__":
+    if iniciar_sesion():
+        menu_principal()
