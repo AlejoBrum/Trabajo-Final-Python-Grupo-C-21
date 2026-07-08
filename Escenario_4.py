@@ -39,7 +39,7 @@ usuarios = {
 usuario_autenticado = None  # Almacena el DNI del usuario que inició sesión
 
 intentos_restantes = 3
-
+cantidad_operaciones = 0
 
 
 # Sección de autenticación
@@ -96,58 +96,39 @@ def iniciar_sesion():
 
 # Menú principal del sistema
 
-
-
 def menu_principal():
-
-    # El bucle mantiene al usuario dentro del menú hasta que decida salir
-
     while True:
-
         print("\n--- MENÚ DE OPERACIONES ---")
-
         print("1. Consultar Saldo")
-
         print("2. Extracción de Efectivo")
-
         print("3. Depósito")
-
         print("4. Transferencia")
+        print("5. Consultar cantidad de operaciones")
+        print("6. Salir")
 
-        print("5. Salir")
-
-
-
-        opcion = input("Seleccione una opción (1-5): ").strip()
-
-
+        opcion = input("Seleccione una opción (1-6): ").strip()
 
         if opcion == "1":
-
             consultar_saldo()
 
         elif opcion == "2":
-
             extraer_dinero()
 
         elif opcion == "3":
-
             depositar_dinero()
 
         elif opcion == "4":
-
             transferir_dinero()
 
         elif opcion == "5":
+            print(f"\nOperaciones realizadas en esta sesión: {cantidad_operaciones}")
 
+        elif opcion == "6":
             print("\nGracias por utilizar nuestros servicios. ¡Hasta luego!")
-
-            break  # Rompe el bucle y cierra el menú
+            break
 
         else:
-
             print("\n[ERROR] Opción no válida. Intente nuevamente.")
-
 
 
 # Función para consultar saldo
@@ -159,11 +140,8 @@ def consultar_saldo():
     datos_usuario = usuarios[usuario_autenticado]
 
     print("\n--- CONSULTA DE SALDO ---")
-
     print(f"Cliente: {datos_usuario['nombre']}")
-
     print(f"Saldo disponible: ${datos_usuario['saldo']}")
-
     print(f"Límite diario de extracción: ${datos_usuario['limite_extraccion']}")
 
 
@@ -173,7 +151,7 @@ def consultar_saldo():
 
 
 def extraer_dinero():
-
+    global cantidad_operaciones
     datos_usuario = usuarios[usuario_autenticado]
 
     print("\n--- EXTRACCIÓN DE EFECTIVO ---")
@@ -217,6 +195,7 @@ def extraer_dinero():
         # Si pasa los controles, descontamos el dinero
 
         datos_usuario["saldo"] -= monto
+        cantidad_operaciones += 1
 
         print(f"\n¡Extracción exitosa! Retire su dinero.")
 
@@ -229,7 +208,7 @@ def extraer_dinero():
 
 
 def depositar_dinero():
-
+    global cantidad_operaciones
     datos_usuario = usuarios[usuario_autenticado]
 
     print("\n--- DEPÓSITO DE EFECTIVO ---")
@@ -261,6 +240,7 @@ def depositar_dinero():
         # Sumamos la plata al saldo del usuario
 
         datos_usuario["saldo"] += monto
+        cantidad_operaciones += 1
 
         print(f"\n¡Depósito exitoso! Se han acreditado ${monto} en su cuenta.")
 
@@ -273,7 +253,7 @@ def depositar_dinero():
 
 
 def transferir_dinero():
-
+    global cantidad_operaciones
     datos_usuario = usuarios[usuario_autenticado]
 
     print("\n--- TRANSFERENCIA BANCARIA ---")
@@ -335,6 +315,7 @@ def transferir_dinero():
         datos_usuario["saldo"] -= monto
 
         usuarios[destino]["saldo"] += monto
+        cantidad_operaciones += 1
 
         print(f"\n¡Transferencia exitosa! Se enviaron ${monto} a {usuarios[destino]['nombre']}.")
 
