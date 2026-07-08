@@ -47,7 +47,7 @@ Las sugerencias fueron revisadas por el grupo antes de incorporarlas al proyecto
 
 **Repositorio de GitHub:**
 
-[Pegar aquí el enlace del repositorio]
+https://github.com/AlejoBrum/Trabajo-Final-Python-Grupo-C-21/tree/master#trabajo-final-integrador
 
 **Video de demostración (YouTube):**
 
