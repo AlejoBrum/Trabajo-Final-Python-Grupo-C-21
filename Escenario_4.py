@@ -1,5 +1,7 @@
 # Trabajo final: Simulador de cajero automático
 
+# Simulación de base de datos de usuarios
+
 usuarios = {
     "20444555": {
         "pin": "1234",
@@ -15,5 +17,87 @@ usuarios = {
     }
 }
 
-usuario_autenticado = None  
+usuario_autenticado = None  # Almacena el DNI del usuario que inició sesión
 intentos_restantes = 3
+
+# Sección de autenticación
+
+def iniciar_sesion():
+    global usuario_autenticado, intentos_restantes
+    
+    print("\n--- BIENVENIDO AL BANCO DIGITAL ---")
+    
+    # Un bucle 'while' (Mientras) que se repite mientras queden intentos
+    while intentos_restantes > 0:
+        dni = input("Ingrese su DNI (Usuario): ").strip()
+        pin = input("Ingrese su clave PIN de 4 dígitos: ").strip()
+        
+        # Verificamos si el DNI existe en el diccionario y si el PIN coincide
+        if dni in usuarios and usuarios[dni]["pin"] == pin:
+            usuario_autenticado = dni
+            print(f"\n¡Ingreso exitoso! Bienvenido/a {usuarios[dni]['nombre']}.")
+            return True  # Corta la función y devuelve "Verdadero" (logueado)
+        else:
+            intentos_restantes -= 1 
+            print(f"[ERROR] Usuario o PIN incorrectos.")
+            print(f"Intentos restantes: {intentos_restantes}\n")
+            
+    # Si el bucle termina y llega acá, es porque se quedó sin intentos
+    print("\n[ALERTA] Tarjeta retenida por seguridad. Comuniqúese con el banco.")
+    return False
+
+# Menú principal del sistema
+
+def menu_principal():
+    # El bucle mantiene al usuario dentro del menú hasta que decida salir
+    while True:
+        print("\n--- MENÚ DE OPERACIONES ---")
+        print("1. Consultar Saldo")
+        print("2. Extracción de Efectivo")
+        print("3. Depósito")
+        print("4. Transferencia")
+        print("5. Salir")
+        
+        opcion = input("Seleccione una opción (1-5): ").strip()
+        
+        if opcion == "1":
+            pass # Temporal: Aca va la consulta de saldo
+        elif opcion == "2":
+            extraer_dinero() # Temporal: Aca va la extracción de dinero
+        elif opcion == "3":
+            pass # Temporal: Aca va el depósito
+        elif opcion == "4":
+            pass # Temporal: Aca va la transferencia
+        elif opcion == "5":
+            print("\nGracias por utilizar nuestros servicios. ¡Hasta luego!")
+            break  # Rompe el bucle y cierra el menú
+        else:
+            print("\n[ERROR] Opción no válida. Intente nuevamente.")
+
+# función para extraer dinero
+
+def extraer_dinero():
+    datos_usuario = usuarios[usuario_autenticado]
+    print("\n--- EXTRACCIÓN DE EFECTIVO ---")
+    print(f"Su límite de extracción diaria es: ${datos_usuario['limite_extraccion']}")
+    
+    # Validamos que lo ingresado sea un número
+    entrada = input("Ingrese el monto a extraer: ").strip()
+    if not entrada.isdigit():
+        print("\n[ERROR] Debe ingresar un monto numérico válido.")
+        return
+
+    monto = float(entrada)
+    
+    # CONTROLES REQUERIDOS POR EL ESCENARIO
+    if monto <= 0:
+        print("\n[ERROR] El monto debe ser mayor a cero.")
+    elif monto > datos_usuario["saldo"]:
+        print("\n[ERROR] Saldo insuficiente.")
+    elif monto > datos_usuario["limite_extraccion"]:
+        print("\n[ERROR] La operación supera su límite de extracción diaria.")
+    else:
+        # Si pasa los controles, descontamos el dinero
+        datos_usuario["saldo"] -= monto
+        print(f"\n¡Extracción exitosa! Retire su dinero.")
+        print(f"Saldo restante: ${datos_usuario['saldo']}")
