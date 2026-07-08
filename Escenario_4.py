@@ -61,7 +61,7 @@ def menu_principal():
         opcion = input("Seleccione una opción (1-5): ").strip()
         
         if opcion == "1":
-            pass # Temporal: Aca va la consulta de saldo
+            consultar_saldo()
         elif opcion == "2":
             extraer_dinero() # <-- Cambiamos el pass por la función real
         elif opcion == "3":
@@ -73,6 +73,14 @@ def menu_principal():
             break  # Rompe el bucle y cierra el menú
         else:
             print("\n[ERROR] Opción no válida. Intente nuevamente.")
+# Función para consultar saldo
+
+def consultar_saldo():
+    datos_usuario = usuarios[usuario_autenticado]
+    print("\n--- CONSULTA DE SALDO ---")
+    print(f"Cliente: {datos_usuario['nombre']}")
+    print(f"Saldo disponible: ${datos_usuario['saldo']}")
+    print(f"Límite diario de extracción: ${datos_usuario['limite_extraccion']}")
 
 # función para extraer dinero
 
