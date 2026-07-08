@@ -13,6 +13,10 @@
 
 K1.3 / C
 
+## Grupo 
+
+C21
+
 ## Descripción
 
 Este trabajo consiste en un simulador de cajero automático desarrollado en Python. El programa permite que un usuario ingrese con su DNI y PIN para acceder a un menú con distintas operaciones bancarias.
